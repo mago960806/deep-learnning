@@ -2,7 +2,7 @@ import time
 
 from keras import models, layers
 from keras.datasets import mnist
-from keras.utils import to_categorical
+from keras.utils import to_categorical, plot_model
 
 start = time.time()
 
@@ -39,3 +39,12 @@ print(f"模型训练完毕, 耗时: {(end - start):.3}s")
 # 测试模型
 test_loss, test_acc = network.evaluate(test_images, test_lables)
 print(f"测试集精准度为: {test_acc:.2%}")
+
+print("模型汇总信息:")
+network.summary()
+# 需要安装[graphviz](https://www.graphviz.org/download/)
+plot_model(network, show_shapes=True)
+print("模型配置信息:")
+print(network.get_config())
+# 保存模型
+network.save("models/model.hdf5")
